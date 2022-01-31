@@ -1,0 +1,31 @@
+import collections
+class Logger:
+
+    def __init__(self):
+        #using dictionary as my data structure to store timestamp and message
+        self.logs = {}
+
+    def shouldPrintMessage(self, timestamp, message):
+        
+        #Returns true if the message should be printed in the given timestamp, otherwise returns false.
+        #If this method returns false, the message will not be printed.
+        #The timestamp is in seconds granularity.
+        
+        if message in self.logs and  self.logs[message] + 10 <= timestamp:
+           
+            self.logs[message] = timestamp
+            return True
+        elif message not in self.logs:
+             #when unique message comes
+            self.logs[message] = timestamp
+            return True
+        else:
+            return False
+            
+            
+            
+     test=[[], [1, "foo"], [2, "bar"], [3, "foo"], [8, "bar"], [10, "foo"], [11, "foo"]]
+     logger=Logger()
+     for timestamp,message in test:
+          print(logger.shouldPrintMessage(timestamp,message))
+     
